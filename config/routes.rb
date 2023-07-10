@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  root 'pages#home'
+  devise_for :admin, controllers: {
+    registrations: 'admin/registrations',
+    sessions: 'admin/sessions'
+  }
+  
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
@@ -7,4 +11,6 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     unlocks: 'users/unlocks'
   }
+
+  root 'pages#home'
 end
