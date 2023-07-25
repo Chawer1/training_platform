@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+    <%= link_to 'New Course', new_course_path, class: 'btn btn-primary' %>
+    <h1>Courses</h1>
+    <% @courses.each do |course| %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to course.title, course_path(course) %></h5>
+          <p class="card-text"><%= course.description %></p>
+          <p class="card-text">Duration: <%= course.duration %> hours</p>
+          <p class="card-text">Difficulty: <%= course.difficulty %></p>
+          <% if course.price.present? %>
+            <p class="card-text">Price: <%= course.price %> $</p>
+          <% else %>
+            <p class="card-text">Free</p>
+          <% end %>
+          <p class="card-text">Created at: <%= course.created_at %></p>
+            <%= link_to 'Edit Course', edit_course_path(course), class: 'btn btn-primary' %>
+        </div>
+      </div>
+      <br>
+    <% end %>
+  </div>
+</div>
