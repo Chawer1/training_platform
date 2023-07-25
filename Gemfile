@@ -54,9 +54,9 @@ gem 'sassc-rails', '>= 2.1.0'
 
 gem 'devise'
 gem 'execjs'
-gem 'pg', '~> 1.5', '>= 1.5.3'
 gem 'mini_racer', '~> 0.8.0'
-gem 'therubyracer', :platforms => :ruby
+gem 'pg', '~> 1.5', '>= 1.5.3'
+gem 'therubyracer', platforms: :ruby
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
