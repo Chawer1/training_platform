@@ -141,18 +141,43 @@ RSpec.describe CoursesController, type: :controller do
   end
 
   describe 'GET #my_courses' do
-    let(:user) { create(:user) }
-    let!(:course1) { create(:course, user: user) }
-    let!(:course2) { create(:course) }
+    context 'as a teacher' do
+      let(:user) { create(:teacher) }
 
-    it 'renders the my_courses template' do
-      get :my_courses
-      expect(response).to render_template(:my_courses)
+      before { sign_in(user) }
+
+      it "assigns the teacher's courses to @courses" do
+        get :my_courses
+
+        expect(assigns(:courses)).to eq(user.courses)
+      end
+
+      it 'renders the my_courses template' do
+        get :my_courses
+        expect(response).to render_template(:my_courses)
+      end
     end
 
-    it "assigns the user's courses to @courses" do
-      get :my_courses
-      expect(assigns(:courses)).to match_array([course1])
+    context 'as a student' do
+      let(:user) { create(:user) }
+
+      before { sign_in(user) }
+
+      it "assigns the student's courses to @courses" do
+        course1 = create(:course)
+        course2 = create(:course)
+        create(:enrollment, user: user, course: course1)
+        create(:enrollment, user: user, course: course2)
+
+        get :my_courses
+
+        expect(assigns(:courses)).to eq([course1, course2])
+      end
+
+      it 'renders the my_courses template' do
+        get :my_courses
+        expect(response).to render_template(:my_courses)
+      end
     end
   end
 end

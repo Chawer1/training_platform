@@ -9,8 +9,13 @@ class User < ApplicationRecord
   enum role: %i[user teacher admin]
   after_initialize :set_default_role, if: :new_record?
 
-  has_many :courses
+  has_many :enrollments
+  has_many :courses, through: :enrollments
   def set_default_role
     self.role ||= :user
+  end
+
+  def enrolled_in?(course)
+    enrollments.exists?(course: course)
   end
 end

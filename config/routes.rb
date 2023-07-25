@@ -16,6 +16,10 @@ Rails.application.routes.draw do
 
   resources :courses do
     resources :lessons
+
+    member do
+      post 'enroll', to: 'courses#enroll'
+    end
   end
 
   get "my_courses", to: "courses#my_courses"

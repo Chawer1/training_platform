@@ -21,16 +21,9 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.creator_id = current_user.id
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to course_url(@course), notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
-    end
+    save_course
   end
 
   def update
@@ -55,7 +48,18 @@ class CoursesController < ApplicationController
   end
 
   def my_courses
-    @courses = current_user.courses
+    @courses = if current_user.teacher?
+                 Course.where(creator_id: current_user.id)
+               else
+                 current_user.courses
+               end
+  end
+
+  def enroll
+    @course = Course.find(params[:id])
+    current_user.enrollments.create(course: @course)
+
+    redirect_to @course, notice: 'You have successfully enrolled in the course.'
   end
 
   private
@@ -79,5 +83,17 @@ class CoursesController < ApplicationController
     return if @course.owned_by?(current_user)
 
     redirect_to root_path, alert: "You can't edit a course that doesn't belong to you."
+  end
+
+  def save_course
+    respond_to do |format|
+      if @course.save
+        format.html { redirect_to course_url(@course), notice: 'Course was successfully created.' }
+        format.json { render :show, status: :created, location: @course }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
+    end
   end
 end
