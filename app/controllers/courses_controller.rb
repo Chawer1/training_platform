@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
+  include AuthorizationHelper
   before_action :set_course, only: %i[show edit update destroy]
   before_action :authenticate_user!
   before_action :check_teacher_role, only: %i[new create edit update destroy]
@@ -71,10 +72,6 @@ class CoursesController < ApplicationController
   def course_params
     params.require(:course).permit(:title, :description, :duration, :difficulty,
                                    :price).merge(user_id: current_user.id)
-  end
-
-  def check_teacher_role
-    redirect_to root_path, alert: 'No access' unless current_user.teacher?
   end
 
   def check_owner

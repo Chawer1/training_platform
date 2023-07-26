@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class LessonsController < ApplicationController
+  include AuthorizationHelper
   before_action :set_lesson, only: %i[show edit update destroy]
   before_action :check_teacher_role, only: %i[new create edit update destroy]
+
+  def index
+    @lessons = Lesson.all
+  end
 
   def show
     @course = @lesson.course
@@ -50,9 +55,5 @@ class LessonsController < ApplicationController
 
   def lesson_params
     params.require(:lesson).permit(:title, :description, :course_id)
-  end
-
-  def check_teacher_role
-    redirect_to root_path, alert: 'No access' unless current_user.teacher?
   end
 end

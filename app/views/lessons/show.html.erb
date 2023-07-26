@@ -6,6 +6,25 @@
 <p>Course Duration: <%= @course.duration %> hours</p>
 <p>Course Difficulty: <%= @course.difficulty %></p>
 
-<% if current_user.teacher? %>
+<h2>Tasks:</h2>
+<ul>
+  <% if @lesson.tasks.any? %>
+    <% @lesson.tasks.each do |task| %>
+      <li>
+        <%= link_to task.name, course_lesson_task_path(@course, @lesson, task) %>
+        <span>(<%= task.status %>)</span>
+      </li>
+    <% end %>
+  <% else %>
+    <li>There are no tasks for this lesson.</li>
+  <% end %>
+</ul>
+
+<% if @course.owned_by?(current_user) && current_user.teacher? %>
+<%= link_to 'Create a task', new_course_lesson_task_path(@course, @lesson), class: 'btn btn-primary' %>
+<% end %>
+<%= link_to 'Back', courses_path, class: 'btn btn-primary' %>
+
+<% if @course.owned_by?(current_user) && current_user.teacher? %>
   <%= link_to 'Edit Lesson', edit_course_lesson_path(@course, @lesson), class: 'btn btn-primary' %>
 <% end %>
