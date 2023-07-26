@@ -13,4 +13,10 @@ Rails.application.routes.draw do
   }
 
   root 'pages#home'
+
+  resources :courses do
+    resources :lessons
+  end
+
+  get "my_courses", to: "courses#my_courses"
 end

@@ -46,7 +46,6 @@ gem 'bootsnap', require: false
 
 # Use Sass to process CSS
 gem 'bootstrap', '~> 5.2'
-gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -54,8 +53,11 @@ gem 'sassc-rails', '>= 2.1.0'
 
 gem 'devise'
 gem 'execjs'
+gem 'factory_bot', '~> 6.2', '>= 6.2.1'
+gem 'factory_bot_rails', '~> 6.2'
 gem 'mini_racer', '~> 0.8.0'
 gem 'pg', '~> 1.5', '>= 1.5.3'
+gem 'pry', '~> 0.14.2'
 gem 'therubyracer', platforms: :ruby
 
 group :development, :test do
@@ -78,8 +80,11 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'faker', '~> 3.2'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 4.5'
   gem 'webdrivers'
 end
