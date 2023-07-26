@@ -27,19 +27,19 @@
             <%= link_to 'Courses', courses_path, class: 'nav-link active' %>
           <li class="nav-item">
             <% if current_user %>
-          <%# if current_user.teacher? %>
             <li class="nav-link">
               <%= link_to "My courses", my_courses_path, class: "nav-link active" %>
             </li>
-          <%# end %>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+            <!-- app/views/layouts/application.html.erb -->
+            <form class="d-flex" role="search" action="<%= courses_path(q: true) %>" method="get">
+              <input class="form-control me-2" type="search" name="q[title_cont]" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success me-2" type="submit">Search</button>
+            </form>
+            </div>
 
-    <li class="nav-link">
+
+    <li class="nav-link me-2">
       <div class="toast-body">Hello <%= current_user.email %>!</div>
       <div class="toast-body">You are a <%= current_user.role %></div>
       <% if current_user.admin? %>

@@ -59,6 +59,7 @@ gem 'factory_bot_rails', '~> 6.2'
 gem 'mini_racer', '~> 0.8.0'
 gem 'pg', '~> 1.5', '>= 1.5.3'
 gem 'pry', '~> 0.14.2'
+gem 'ransack', '~> 4.0'
 gem 'therubyracer', platforms: :ruby
 
 group :development, :test do
