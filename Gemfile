@@ -51,6 +51,7 @@ gem 'sassc-rails', '>= 2.1.0'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem 'activeadmin', '~> 3.0'
 gem 'devise'
 gem 'execjs'
 gem 'factory_bot', '~> 6.2', '>= 6.2.1'
