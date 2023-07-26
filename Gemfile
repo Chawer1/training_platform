@@ -88,5 +88,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.5'
+  gem 'simplecov', require: false
+  gem 'simplecov-cobertura', '~> 2.1'
   gem 'webdrivers'
 end
