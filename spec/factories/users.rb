@@ -8,6 +8,8 @@ FactoryBot.define do
 
     factory :teacher do
       role { 1 }
+
+      after(:create) { |teacher| create_list(:course, 2, user: teacher) }
     end
   end
 end

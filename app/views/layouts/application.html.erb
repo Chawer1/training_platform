@@ -27,11 +27,11 @@
             <%= link_to 'Courses', courses_path, class: 'nav-link active' %>
           <li class="nav-item">
             <% if current_user %>
-          <% if current_user.teacher? %>
+          <%# if current_user.teacher? %>
             <li class="nav-link">
               <%= link_to "My courses", my_courses_path, class: "nav-link active" %>
             </li>
-          <% end %>
+          <%# end %>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
