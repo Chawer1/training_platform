@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :courses do
-    resources :lessons
+    resources :lessons do
+      resources :tasks
+    end
 
     member do
       post 'enroll', to: 'courses#enroll'
@@ -21,4 +23,6 @@ Rails.application.routes.draw do
   end
 
   get "my_courses", to: "courses#my_courses"
+
+  resources :submissions
 end

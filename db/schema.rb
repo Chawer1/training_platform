@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_235330) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_031632) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -81,6 +81,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_235330) do
     t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_submissions_on_task_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "materials"
+    t.datetime "date_created"
+    t.string "status"
+    t.integer "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_tasks_on_lesson_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -98,4 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_235330) do
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
   add_foreign_key "lessons", "courses", on_delete: :cascade
+  add_foreign_key "submissions", "tasks"
+  add_foreign_key "submissions", "users"
+  add_foreign_key "tasks", "lessons"
 end

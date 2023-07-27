@@ -1,0 +1,18 @@
+<h1>Уроки</h1>
+
+<% @lessons.each do |lesson| %>
+  <div>
+    <h2><%= lesson.title %></h2>
+    <p><%= lesson.description %></p>
+
+    <h3>Tasks:</h3>
+    <ul>
+      <% lesson.tasks.each do |task| %>
+        <li>
+          <%= link_to task.name, course_lesson_task_path(@course, lesson, task) %>
+          <span>(<%= task.status %>)</span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

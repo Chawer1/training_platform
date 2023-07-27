@@ -1,0 +1,19 @@
+<h1>Editing a task</h1>
+
+<%= form_with(model: @task, url: course_lesson_task_path(@course, @lesson, @task), method: :patch) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+
+  <%= form.label :materials %>
+  <%= form.text_area :materials %>
+
+  <%= form.label :status %>
+  <%= form.select :status, ['Active', 'Done', 'Canceled'] %>
+
+  <%= form.submit 'Update task', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Back to task', course_lesson_task_path(@course, @lesson, @task), class: 'btn btn-primary' %>
