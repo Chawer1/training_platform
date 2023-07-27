@@ -9,7 +9,12 @@ class CoursesController < ApplicationController
   protect_from_forgery
 
   def index
-    @courses = Course.all
+    if params[:q]
+      @q = Course.ransack(params[:q])
+      @courses = @q.result(distinct: true)
+    else
+      @courses = Course.all
+    end
   end
 
   def show; end

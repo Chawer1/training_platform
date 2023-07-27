@@ -26,4 +26,9 @@ class Course < ApplicationRecord
   def owned_by?(user)
     self.user == user
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at creator_id description difficulty duration id price title updated_at
+       user_id]
+  end
 end
